@@ -8,16 +8,19 @@ how_many_observation_by_tag = {}
 
 if __name__ == '__main__':
 
-    x1 = Observations(var_1=4, var_2=2, cluster_tag="c1")
-    x2 = Observations(var_1=6, var_2=4, cluster_tag="c1")
-    x3 = Observations(var_1=5, var_2=1, cluster_tag="c2")
-    x4 = Observations(var_1=10, var_2=6, cluster_tag="c1")
-    x5 = Observations(var_1=11, var_2=8, cluster_tag="c2")
+    x1 = Observations(var_1=4, var_2=2, cluster_tag="")
+    x2 = Observations(var_1=6, var_2=4, cluster_tag="")
+    x3 = Observations(var_1=5, var_2=1, cluster_tag="")
+    x4 = Observations(var_1=10, var_2=6, cluster_tag="")
+    x5 = Observations(var_1=11, var_2=8, cluster_tag="")
+    x6 = Observations(var_1=25, var_2=31, cluster_tag="")
+    x7 = Observations(var_1=22, var_2=13, cluster_tag="")
 
-    objects = (x1, x2, x3, x4, x5)
+    objects = (x1, x2, x3, x4, x5, x6, x7)
+
     e_array = []
     means_dict = {}
-    k = 2
+    k = 3
     tags = [f"c{i + 1}" for i in range(k)]  # generates tags how much tags require [c1,c2,c3 ...]
     is_there_any_of_tags_changed = False
     iteration_count = 0
@@ -124,10 +127,15 @@ if __name__ == '__main__':
         iteration_count += 1
 
 
-    add_tags_to_object(objects)  # Tags randomly attached to the objects
-
-    k_means()
-    while is_there_any_of_tags_changed:
+    try:
+        add_tags_to_object(objects)  # Tags randomly attached to the objects
         k_means()
+        while is_there_any_of_tags_changed:
+            k_means()
+    except Exception as e:
+        print(e)
+        print("Try to change cluster amount")
 
-    print(iteration_count)
+    print(e_array)
+    for i in objects:
+        i.see_object()

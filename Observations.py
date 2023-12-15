@@ -14,6 +14,4 @@ class Observations:
         return str(self.var_1)
 
     def see_object(self):
-        print(self.var_1)
-        print(self.var_2)
-        print(self.cluster_tag, "\n")
+        print(f"(x = {self.var_1}, y = {self.var_2}, tag = {self.cluster_tag})")
